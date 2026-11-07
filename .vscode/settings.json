@@ -1,0 +1,28 @@
+{
+  "sqltools.connections": [
+    {
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5433,
+      "driver": "PostgreSQL",
+      "name": "todo_db",
+      "database": "todo_db",
+      "username": "postgres",
+      "password": "Test",
+      "connectionTimeout": 30
+    },
+    {
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5433,
+      "driver": "PostgreSQL",
+      "name": "todo_app",
+      "database": "todos",
+      "username": "postgres",
+      "password": "Test",
+      "connectionTimeout": 30
+    }
+  ]
+}

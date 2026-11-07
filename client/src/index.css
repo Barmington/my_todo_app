@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+
+body {
+  background-color: rgb(221, 225, 225);
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+.custom-box {
+  @apply bg-blue-700 text-white font-semibold p-1 w-24 h-8 rounded-xl shadow-md flex items-center justify-center md:bg-cyan-800 md:text-cyan-200;
+}
