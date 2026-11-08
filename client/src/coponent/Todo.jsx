@@ -4,6 +4,21 @@ import { useNavigate } from 'react-router';
 import TodoContext from '../contextApi/todoContextProvider';
 import NavBar from '../coponent/NavBar';
 
+const today = new Date();
+
+const formattedDate = today.toLocaleDateString('en-GB', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const now = new Date();
+const timeNow = now.toLocaleString('en-GB', {
+  timeStyle: 'short',
+});
+// console.log('Todays date is ', formattedDate, timeNow);
+
 function Todo() {
   const { todos, setTodos } = useContext(TodoContext);
   const navigate = useNavigate();
@@ -43,6 +58,14 @@ function Todo() {
     }
   }
 
+  function handleComplete(id) {
+    setTodos(
+      todos.map(todo =>
+        todo.id === id ? { ...todo, isComplete: !todo.isComplete } : todo,
+      ),
+    );
+  }
+
   return (
     <div className="w-full max-w-sm mx-auto p-3 border-2 border-gray-400 bg-gray-100 rounded-4xl shadow-md">
       <NavBar />
@@ -51,7 +74,12 @@ function Todo() {
         <h2 className="text-center font-bold text-xl text-blue-800">
           List of activities
         </h2>
-
+        <div className="flex justify-between font-light ">
+          <p>{formattedDate}</p>
+          <p>{timeNow}</p>
+        </div>
+        <p> xxx todos remaining</p>{' '}
+        {/* xxx = todo.length - todo.Complete.length */}
         {todos.length === 0 ? (
           <p className="text-center text-gray-500 py-4">
             You have no todo. Please add a todo.
@@ -60,40 +88,43 @@ function Todo() {
           todos.map(todo => (
             <div
               key={todo.id}
-              className="flex items-start justify-between gap-3 p-3 border border-gray-200 rounded-lg"
+              className="flex items-center justify-between gap-3 p-3 border border-gray-200 rounded-lg"
             >
-              <div className="min-w-0 flex-1">
-                <div className="flex items-start gap-2">
-                  <div className="flex flex-1 flex-wrap justify-between gap-2 items-center">
-                    <p className="font-medium wrap-break-words">{todo.task}</p>
-                    <p className="text-sm text-gray-500">{todo.task_time}</p>
-                  </div>
-                </div>
+              <input
+                type="checkbox"
+                checked={todo.isComplete}
+                onChange={() => handleComplete(todo.id)}
+              />
+              <p
+                style={{
+                  color: todo.isComplete ? 'gray' : 'inherit',
+                  font: todo.isComplete ? 'normal' : 'inherit',
+                }}
+              >
+                {todo.task}
+              </p>
+              <p className="text-sm text-gray-500">{todo.task_time}</p>
 
-                <div className="inline-block mt-2 ml-5 rounded-lg bg-blue-100 text-blue-800 border border-blue-300 px-2 py-1 text-sm">
-                  {todo.type || 'General'}
-                </div>
-              </div>
+              <button
+                style={{
+                  display: todo.isComplete && 'none',
+                }}
+                type="button"
+                onClick={() => navigate(`/edit/${todo.id}`)}
+                className="text-gray-600 hover:text-blue-700"
+                aria-label={`Edit ${todo.task}`}
+              >
+                <MdOutlineEdit size={20} />
+              </button>
 
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => navigate(`/edit/${todo.id}`)}
-                  className="text-gray-600 hover:text-blue-700"
-                  aria-label={`Edit ${todo.task}`}
-                >
-                  <MdOutlineEdit size={20} />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleDelete(todo.id)}
-                  className="text-red-600 hover:text-red-800"
-                  aria-label={`Delete ${todo.task}`}
-                >
-                  <MdDelete size={20} />
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => handleDelete(todo.id)}
+                className="text-red-600 hover:text-red-800"
+                aria-label={`Delete ${todo.task}`}
+              >
+                <MdDelete size={20} />
+              </button>
             </div>
           ))
         )}

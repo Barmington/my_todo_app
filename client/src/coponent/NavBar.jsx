@@ -1,5 +1,23 @@
 import { IoMenu } from 'react-icons/io5';
+
 function NavBar() {
+  function greeting() {
+    const now = new Date();
+    const hour = now.getHours();
+
+    let sayGreeting;
+
+    if (hour < 12) {
+      sayGreeting = 'Good morning';
+    } else if (hour < 17) {
+      sayGreeting = 'Good afternoon';
+    } else {
+      sayGreeting = 'Good evening';
+    }
+
+    return sayGreeting;
+  }
+
   return (
     <nav>
       <div className="mb-5">
@@ -14,30 +32,7 @@ function NavBar() {
             alt="User image"
           />
         </div>
-        <h3>Good morning, User</h3>
-      </div>
-
-      <div>
-        <p>User you have xxx todos left</p>
-        <div className="h-auto w-full px-1 rounded-lg">
-          <div className="flex space-y-2 justify-between w-full items-center">
-            {/* <div className="space-y-2"> */}
-            <div className="custom-box">All</div>
-            <div className="custom-box">Work</div>
-            {/* </div> */}
-            <div className="flex items-center justify-center font-bold text-blue-700 rounded-full bg-white h-20 w-20 shadow-2xl md:hidden md:justify-between md:items-center">
-              All
-            </div>
-            {/* <div className="space-y-2"> */}
-            <div className="custom-box ">Personal</div>
-            <div className="custom-box ">Shopping</div>
-            {/* </div> */}
-          </div>
-        </div>
-        <div className="flex justify-between my-2 font-light p-2 ">
-          <p>Today</p>
-          <p>xxx todos remaining</p>
-        </div>
+        <h3>{greeting()}, User</h3>
       </div>
     </nav>
   );

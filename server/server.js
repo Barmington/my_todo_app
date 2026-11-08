@@ -2,10 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
+// import { session } from 'express-session';
+// import pgSession from 'connect-pg-simple';
 
 dotenv.config();
 const app = express();
-
 const PORT = process.env.PORT;
 
 const pool = new Pool({
@@ -13,7 +14,7 @@ const pool = new Pool({
   user: 'postgres',
   database: 'todos',
   port: process.env.DB_PORT,
-  password: process.env.DB_Password,
+  password: process.env.DB_PASSWORD,
 });
 
 pool.connect().then(() => {
@@ -21,6 +22,21 @@ pool.connect().then(() => {
 });
 
 app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(
+//   session({
+//     store: new pgSession({ pool: pool, createTableIfMissing: true }),
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//       secure: false,
+//       httpOnly: true,
+//       sameSite: lax,
+//       maxAge: 1000 * 60 * 60,
+//     },
+//   }),
+// );
 app.use(cors());
 
 app.get('/todos', async (req, res) => {
@@ -55,7 +71,7 @@ app.get('/todos/:id', async (req, res) => {
 });
 
 app.post('/todos', async (req, res) => {
-  const { task, task_time, completed } = req.body;
+  const { task, task_time } = req.body;
   if (task !== 'string' && null) {
     res.status(404).json({
       error: 'Please enter todo',
