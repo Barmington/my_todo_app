@@ -6,6 +6,6 @@ body {
   display: flex;
   justify-content: center;
 }
-.custom-box {
+/* .custom-box {
   @apply bg-blue-700 text-white font-semibold p-1 w-24 h-8 rounded-xl shadow-md flex items-center justify-center md:bg-cyan-800 md:text-cyan-200;
-}
+} */
