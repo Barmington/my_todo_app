@@ -75,8 +75,8 @@ function Todo() {
           List of activities
         </h2>
         <div className="flex justify-between font-light ">
-          <p>{formattedDate}</p>
-          <p>{timeNow}</p>
+          <p className="text-sm">{formattedDate}</p>
+          <p className="text-sm">{timeNow}</p>
         </div>
         <p> xxx todos remaining</p>{' '}
         {/* xxx = todo.length - todo.Complete.length */}

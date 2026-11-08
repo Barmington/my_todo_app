@@ -20,8 +20,8 @@ function NavBar() {
 
   return (
     <nav>
-      <div className="mb-5">
-        <div className="flex justify-between items-center">
+      <div className="mb-3 shadow border-b-gray-200 bg-(--surface) ">
+        <div className="flex justify-between items-center pr-2 mt-0">
           <div>
             <IoMenu size={30} />
           </div>
